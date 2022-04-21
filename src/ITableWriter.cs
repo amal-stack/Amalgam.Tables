@@ -10,6 +10,9 @@ public interface ITableWriter<TTable, TElement, TOptions>
     where TTable : Table<TElement, TOptions>
     where TOptions : TableOptions
 {
+    /// <summary>
+    /// The table which will be written.
+    /// </summary>
     TTable Table { get; }
 
     /// <summary>

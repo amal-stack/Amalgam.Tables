@@ -16,6 +16,9 @@ public class TableColumn<TElement>
     /// </summary>
     public Func<TElement, int, string> Selector { get; }
 
+    /// <summary>
+    /// The width of the table column.
+    /// </summary>
     public int Width { get; set; }
 
     /// <summary>

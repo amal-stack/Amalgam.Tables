@@ -8,8 +8,14 @@
 public class Table<TElement, TOptions>
     where TOptions : TableOptions
 {
+    /// <summary>
+    /// A list of column configurations for each column of the table.
+    /// </summary>
     public IReadOnlyList<TableColumn<TElement>> Columns { get; }
 
+    /// <summary>
+    /// The data source for the table.
+    /// </summary>
     public IEnumerable<TElement> Elements { get; }
 
     /// <summary>
@@ -21,6 +27,9 @@ public class Table<TElement, TOptions>
     /// <returns>The number of elements in <see cref="Elements"/>.</returns>
     public int GetRowCount() => Elements.Count();
 
+    /// <summary>
+    /// The table options object.
+    /// </summary>
     public TOptions Options { get; }
 
     public Table(

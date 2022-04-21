@@ -26,7 +26,6 @@ public class PlainTextTableOptions : TableOptions
     /// </summary>
     ///<value>The default value is <see cref="TableRule.HeaderFooter"/>.</value>
     public TableRule Rule { get; set; } = TableRule.HeaderFooter;
-
 }
 
 

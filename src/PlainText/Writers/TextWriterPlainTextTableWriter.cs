@@ -28,9 +28,6 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         FinalRuleDivider = $" {Table.Options.RuleDividerCharacter}";
     }
 
-    /// <summary>
-    /// Outputs the entire table to <see cref="Writer"/>.
-    /// </summary>
     public virtual void Write()
     {
         if (Table.Options.AutoResizeColumns)
@@ -66,9 +63,6 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         }
     }
 
-    /// <summary>
-    /// Writes the entire header row to <see cref="Writer"/>.
-    /// </summary>
     public virtual void WriteHeader()
     {
         WriteDivider();
@@ -85,11 +79,6 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         Writer.WriteLine();
     }
 
-    /// <summary>
-    /// Writes an entire row (for a single element of the table) using using the <see cref="TableColumn{TElement}.Selector"/> for each column in <see cref="Table.Columns"/> to <see cref="Writer"/>
-    /// </summary>
-    /// <param name="element"></param>
-    /// <param name="index"></param>
     public void WriteRowForElement(TElement element, int index)
     {
         WriteDivider();
@@ -106,9 +95,7 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         Writer.WriteLine();
     }
 
-    /// <summary>
-    /// Adds a horizontal rule to <see cref="Writer"/>
-    /// </summary>
+   
     public virtual void WriteRule()
     {
         WriteRuleDivider(initial: true);
@@ -121,44 +108,31 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         Writer.WriteLine();
     }
 
-    /// <summary>
-    /// Writes the content of a single cell to <see cref="Writer"/>.
-    /// </summary>
-    /// <param name="alignedValue">The content of the cell after alignment.</param>
+    
     public virtual void WriteCell(string alignedValue)
     {
         Writer.Write(alignedValue);
     }
 
-    /// <summary>
-    /// Writes the content of a single header cell to <see cref="Writer"/>.
-    /// </summary>
-    /// <param name="alignedValue">The content of the cell after alignment.</param>
+    
     public virtual void WriteHeaderCell(string alignedValue)
     {
         Writer.Write(alignedValue);
     }
 
-    /// <summary>
-    /// Adds a horizontal rule.
-    /// </summary>
-    /// <param name="column">The column for which the rule characters has to be written.</param>
+    
     public virtual void WriteRuleForColumn(TableColumn<TElement> column)
     {
         Writer.Write(new string(Table.Options.RuleCharacter, column.Width + 2));
     }
 
-    /// <summary>
-    /// Writes the divider to <see cref="Writer"/>.
-    /// </summary>
+    
     public virtual void WriteDivider()
     {
         Writer.Write(FinalDivider);
     }
 
-    /// <summary>
-    /// Writes the rule divider to <see cref="Writer"/>.
-    /// </summary>
+    
     public virtual void WriteRuleDivider(bool initial = false)
     {
         Writer.Write(initial ? FinalRuleDivider : FinalRuleDivider.AsSpan(1));
