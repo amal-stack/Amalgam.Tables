@@ -23,9 +23,12 @@ internal static class StringExtensions
         }
 
         int half = diff / 2;
-        StringBuilder builder = new(
-            $"{new string(' ', half)}{str}{new string(' ', half)}",
-            width);
+        StringBuilder builder = new();
+
+        builder
+            .Append(' ', half)
+            .Append(str)
+            .Append(' ', half);
 
         if (diff % 2 == 1)
         {
