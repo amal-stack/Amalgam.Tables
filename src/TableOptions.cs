@@ -13,12 +13,6 @@ public class TableOptions
     public TableContentAlignment Alignment { get; set; } = TableContentAlignment.Right;
 
     /// <summary>
-    /// Gets or sets the value that specifies if the width of each column must expand to fit the widest cell in the column.
-    /// </summary>
-    /// <value><see langword="true"/> is the default value.</value>
-    public bool AutoResizeColumns { get; set; } = true;
-
-    /// <summary>
     /// Gets or sets a value representing the numbering column configuration for the table.
     /// </summary>
     public NumberingOptions Numbering { get; set; } = new();
