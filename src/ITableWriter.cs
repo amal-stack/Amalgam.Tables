@@ -5,9 +5,11 @@
 /// </summary>
 /// <typeparam name="TTable">The type of the table object.</typeparam>
 /// <typeparam name="TElement">The type of elements in the table.</typeparam>
+/// <typeparam name="TColumn">The type of the columns in the table.</typeparam>
 /// <typeparam name="TOptions">The type of the table options.</typeparam>
-public interface ITableWriter<TTable, TElement, TOptions>
-    where TTable : Table<TElement, TOptions>
+public interface ITableWriter<TTable, TElement, TColumn, TOptions>
+    where TTable : Table<TElement, TColumn, TOptions>
+    where TColumn : TableColumn<TElement>
     where TOptions : TableOptions
 {
     /// <summary>

@@ -2,9 +2,10 @@
 
 namespace Amalgam.Tables.Builders;
 
-public interface ITableBuilder<out TBuilder, out TTable, TElement, TOptions>
-    where TBuilder : ITableBuilder<TBuilder, TTable, TElement, TOptions>
-    where TTable : Table<TElement, TOptions>
+public interface ITableBuilder<out TBuilder, out TTable, in TColumn, TElement, TOptions>
+    where TBuilder : ITableBuilder<TBuilder, TTable, TColumn, TElement, TOptions>
+    where TTable : Table<TElement, TColumn, TOptions>
+    where TColumn : TableColumn<TElement>
     where TOptions : TableOptions, new()
 {
     TBuilder This { get; }
@@ -14,17 +15,17 @@ public interface ITableBuilder<out TBuilder, out TTable, TElement, TOptions>
     /// </summary>
     /// <param name="column">The column to be added.</param>
     /// <returns>A reference to this instance after adding the column.</returns>
-    TBuilder AddColumn(TableColumn<TElement> column);
+    TBuilder AddColumn(TColumn column);
 
-    /// <inheritdoc cref="AddColumn(TableColumn{TElement})" path="/summary"/>
+    /// <inheritdoc cref="AddColumn(TColumn)" path="/summary"/>
     /// <typeparam name="TColumn"></typeparam>
     /// <param name="name">The name/header text for the column.</param>
     /// <param name="selector">The </param>
     /// <param name="alignment"></param>
     /// <returns></returns>
-    TBuilder AddColumn<TColumn>(
+    TBuilder AddColumn<TColumnData>(
         string name,
-        Func<TElement, TColumn> selector,
+        Func<TElement, TColumnData> selector,
         TableContentAlignment? alignment = null);
 
     TBuilder AddNumbering(
@@ -44,40 +45,49 @@ public interface ITableBuilder<out TBuilder, out TTable, TElement, TOptions>
 }
 
 
-public interface ITableBuilder<out TTable, TElement, TOptions>
-    where TTable : Table<TElement, TOptions>
+public interface ITableBuilder<out TTable, in TColumn, TElement, TOptions>
+    where TTable : Table<TElement, TColumn, TOptions>
+    where TColumn : TableColumn<TElement>
     where TOptions : TableOptions, new()
 {
-    ITableBuilder<TTable, TElement, TOptions> AddColumn(TableColumn<TElement> column);
+    ITableBuilder<TTable, TColumn, TElement, TOptions> AddColumn(TColumn column);
 
-    ITableBuilder<TTable, TElement, TOptions> AddColumn<TColumn>(
+    ITableBuilder<TTable, TColumn, TElement, TOptions> AddColumn<TColumnData>(
         string name,
-        Func<TElement, TColumn> selector,
+        Func<TElement, TColumnData> selector,
         TableContentAlignment? alignment = null);
 
-    ITableBuilder<TTable, TElement, TOptions> AddNumbering(
+    ITableBuilder<TTable, TColumn, TElement, TOptions> AddNumbering(
         Action<TableOptions.NumberingOptions>? action = null,
         TableContentAlignment? alignment = null);
 
-    ITableBuilder<TTable, TElement, TOptions> Configure(Action<TOptions> action);
+    ITableBuilder<TTable, TColumn, TElement, TOptions> Configure(Action<TOptions> action);
 
-    ITableBuilder<TTable, TElement, TOptions> ConfigureNumbering(
+    ITableBuilder<TTable, TColumn, TElement, TOptions> ConfigureNumbering(
         Action<TableOptions.NumberingOptions> action);
 
-    ITableBuilder<TTable, TElement, TOptions> For(IEnumerable<TElement> items);
+    ITableBuilder<TTable, TColumn, TElement, TOptions> For(IEnumerable<TElement> items);
 
-    ITableBuilder<TTable, TElement, TOptions> UseOptions(TOptions options);
+    ITableBuilder<TTable, TColumn, TElement, TOptions> UseOptions(TOptions options);
 
     TTable Build();
 }
 
-public interface ITableBuilder<TElement, TOptions>
-    : ITableBuilder<Table<TElement, TOptions>, TElement, TOptions>
+public interface ITableBuilder<TColumn, TElement, TOptions>
+    : ITableBuilder<Table<TElement, TColumn, TOptions>, TColumn, TElement, TOptions>
+    where TColumn : TableColumn<TElement>
     where TOptions : TableOptions, new()
 {
 }
 
-public interface ITableBuilder<TElement>
-    : ITableBuilder<TElement, TableOptions>
+public interface ITableBuilder<TColumn, TElement>
+    : ITableBuilder<TColumn, TElement, TableOptions>
+    where TColumn : TableColumn<TElement>
 {
+}
+
+public interface ITableBuilder<TElement>
+    : ITableBuilder<TableColumn<TElement>, TElement>
+{
+
 }

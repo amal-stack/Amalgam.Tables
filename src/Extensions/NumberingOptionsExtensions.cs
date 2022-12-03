@@ -8,10 +8,11 @@ public static class NumberingOptionsExtensions
         return options.Values?[i % options.Values.Count] ?? i.ToString();
     }
 
-    public static TableColumn<TElement> GenerateEnumeratedColumn<TElement>(
+    public static TColumn GenerateEnumeratedColumn<TElement, TColumn>(
         this TableOptions.NumberingOptions options,
+        Func<string, Func<TElement, int, string>, TableContentAlignment?, TColumn> columnFactory,
         TableContentAlignment? alignment = null)
-        => new(options.HeaderText,
+        => columnFactory(options.HeaderText,
             (element, index) => options.GetNumberForIndex(index),
             alignment);
 }

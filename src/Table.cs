@@ -4,19 +4,26 @@
 /// Represents the configuration for creating a table from an <see cref="IEnumerable{TElement}"/>.
 /// </summary>
 /// <typeparam name="TElement">The type of elements in the enumerable.</typeparam>
+/// <typeparam name="TColumn">The type of the columns in the table.</typeparam>
 /// <typeparam name="TOptions">The type of the options object to configure the table creation.</typeparam>
-public class Table<TElement, TOptions>
+public class Table<TElement, TColumn, TOptions>
+    where TColumn : TableColumn<TElement>
     where TOptions : TableOptions
 {
     /// <summary>
     /// A list of column configurations for each column of the table.
     /// </summary>
-    public IReadOnlyList<TableColumn<TElement>> Columns { get; }
+    public IReadOnlyList<TColumn> Columns { get; }
 
     /// <summary>
     /// The data source for the table.
     /// </summary>
     public IEnumerable<TElement> Elements { get; }
+
+    /// <summary>
+    /// The table options object.
+    /// </summary>
+    public TOptions Options { get; }
 
     /// <summary>
     /// Computes the number of the elements in the enumerable <see cref="Elements"/>.
@@ -27,14 +34,9 @@ public class Table<TElement, TOptions>
     /// <returns>The number of elements in <see cref="Elements"/>.</returns>
     public int GetRowCount() => Elements.Count();
 
-    /// <summary>
-    /// The table options object.
-    /// </summary>
-    public TOptions Options { get; }
-
     public Table(
         IEnumerable<TElement> elements,
-        IReadOnlyList<TableColumn<TElement>> columns,
+        IReadOnlyList<TColumn> columns,
         TOptions options)
     {
         Elements = elements;
@@ -42,3 +44,5 @@ public class Table<TElement, TOptions>
         Options = options;
     }
 }
+
+
