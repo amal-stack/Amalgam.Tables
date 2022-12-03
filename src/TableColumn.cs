@@ -3,6 +3,9 @@
 /// <summary>
 /// Represents a single column for a table whose value is computed by passing the element to the <see cref="Selector"/> delegate.
 /// </summary>
+/// <remarks>
+/// Inherit this class to specify column-specific options for a specific table type.
+/// </remarks>
 /// <typeparam name="TElement">The type of elements in the parent table.</typeparam>
 public class TableColumn<TElement>
 {
@@ -17,11 +20,6 @@ public class TableColumn<TElement>
     public Func<TElement, int, string> Selector { get; }
 
     /// <summary>
-    /// The width of the table column.
-    /// </summary>
-    public int Width { get; set; }
-
-    /// <summary>
     /// Gets or sets the alignment for the column.
     /// </summary>
     /// <remarks>If this value is <see langword="null"/>, the alignment specified in <see cref="TableOptions.Alignment"/> will be used. </remarks>
@@ -34,7 +32,6 @@ public class TableColumn<TElement>
     {
         Name = name;
         Selector = selector;
-        Width = Name.Length;
         Alignment = alignment;
     }
 
@@ -44,6 +41,26 @@ public class TableColumn<TElement>
     /// <param name="element">The element whose cell value has to be computed.</param>
     /// <param name="index">The index of the element in the table.</param>
     /// <returns>The cell value of this column for <paramref name="element"/> by applying the projection function.</returns>
-    public string Get(TElement element, int index) => Selector.Invoke(element, index);
+    public virtual string Get(TElement element, int index) => Selector.Invoke(element, index);
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <inheritdoc/>
+public class PlaintextTableColumn<TElement> : TableColumn<TElement>
+{
+    /// <summary>
+    /// The width of the table column.
+    /// </summary>
+    public int Width { get; set; }
+
+    public PlaintextTableColumn(
+        string name,
+        Func<TElement, int, string> selector,
+        TableContentAlignment? alignment = null)
+        : base(name, selector, alignment)
+    {
+        Width = name.Length;
+    }
+}

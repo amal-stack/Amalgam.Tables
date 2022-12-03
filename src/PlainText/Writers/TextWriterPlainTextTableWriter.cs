@@ -1,15 +1,15 @@
 ﻿using Amalgam.Tables.Extensions;
 
-namespace Amalgam.Tables.PlainText.Writers;
+namespace Amalgam.Tables.Plaintext.Writers;
 
 /// <summary>
 /// Implements a table writer that writes a <see cref="PlainTextTable{TElement}"/> to a <see cref="TextWriter"/>.
 /// </summary>
 /// <remarks>This writer does not currently implement numbering specified via <see cref="TableOptions.NumberingOptions"/>. </remarks>
 /// <typeparam name="TElement">The type of elements in the table.</typeparam>
-public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TElement>
+public class TextWriterPlaintextTableWriter<TElement> : IPlaintextTableWriter<TElement>
 {
-    public Table<TElement, PlainTextTableOptions> Table { get; }
+    public PlaintextTable<TElement> Table { get; }
 
     public TextWriter Writer { get; }
 
@@ -18,8 +18,8 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
     protected string FinalRuleDivider { get; }
 
 
-    public TextWriterPlainTextTableWriter(
-        Table<TElement, PlainTextTableOptions> table,
+    public TextWriterPlaintextTableWriter(
+         PlaintextTable<TElement> table,
         TextWriter writer)
     {
         Table = table;
@@ -95,7 +95,7 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         Writer.WriteLine();
     }
 
-   
+
     public virtual void WriteRule()
     {
         WriteRuleDivider(initial: true);
@@ -108,31 +108,31 @@ public class TextWriterPlainTextTableWriter<TElement> : IPlainTextTableWriter<TE
         Writer.WriteLine();
     }
 
-    
+
     public virtual void WriteCell(string alignedValue)
     {
         Writer.Write(alignedValue);
     }
 
-    
+
     public virtual void WriteHeaderCell(string alignedValue)
     {
         Writer.Write(alignedValue);
     }
 
-    
-    public virtual void WriteRuleForColumn(TableColumn<TElement> column)
+
+    public virtual void WriteRuleForColumn(PlaintextTableColumn<TElement> column)
     {
         Writer.Write(new string(Table.Options.RuleCharacter, column.Width + 2));
     }
 
-    
+
     public virtual void WriteDivider()
     {
         Writer.Write(FinalDivider);
     }
 
-    
+
     public virtual void WriteRuleDivider(bool initial = false)
     {
         Writer.Write(initial ? FinalRuleDivider : FinalRuleDivider.AsSpan(1));

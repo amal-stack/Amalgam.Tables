@@ -1,19 +1,19 @@
 ﻿using static System.Console;
 
-namespace Amalgam.Tables.PlainText.Writers;
+namespace Amalgam.Tables.Plaintext.Writers;
 
 /// <summary>
 /// Implements a table writer that writes a table to the standard output stream or to the specified <see cref="TextWriter"/> as per the  <see cref="ConsoleColor"/> options in <see cref="ColorOptions"/> .
 /// </summary>
 /// <typeparam name="TElement"></typeparam>
 /// <inheritdoc/>
-public class ConsoleTableWriter<TElement> : TextWriterPlainTextTableWriter<TElement>
+public class ConsoleTableWriter<TElement> : TextWriterPlaintextTableWriter<TElement>
 {
     /// <inheritdoc cref="ConsoleColorOptions"/>
     public ConsoleColorOptions ColorOptions { get; }
 
     public ConsoleTableWriter(
-        Table<TElement, PlainTextTableOptions> table,
+        PlaintextTable<TElement> table,
         ConsoleColorOptions? options = null,
         TextWriter? writer = null)
         : base(table, writer ?? Out)

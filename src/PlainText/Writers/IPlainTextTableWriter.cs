@@ -1,11 +1,11 @@
-﻿namespace Amalgam.Tables.PlainText.Writers;
+﻿namespace Amalgam.Tables.Plaintext.Writers;
 
 /// <summary>
 /// Defines the members for a writer that materializes a <see cref="Table{TElement, TOptions}"/> object by writing the table to an output destination.
 /// </summary>
 /// <typeparam name="TElement">The type of elements in the table.</typeparam>
-public interface IPlainTextTableWriter<TElement>
-    : ITableWriter<Table<TElement, PlainTextTableOptions>, TElement, PlainTextTableOptions>
+public interface IPlaintextTableWriter<TElement>
+    : ITableWriter<PlaintextTable<TElement>, TElement, PlaintextTableColumn<TElement>, PlaintextTableOptions>
 {
     /// <summary>
     /// Writes the content of a single cell.
@@ -51,5 +51,5 @@ public interface IPlainTextTableWriter<TElement>
     /// Adds a horizontal rule for one column.
     /// </summary>
     /// <param name="column">The column for which the rule characters has to be written.</param>
-    void WriteRuleForColumn(TableColumn<TElement> column);
+    void WriteRuleForColumn(PlaintextTableColumn<TElement> column);
 }

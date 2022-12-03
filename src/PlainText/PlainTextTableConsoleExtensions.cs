@@ -1,8 +1,8 @@
-﻿using Amalgam.Tables.PlainText.Writers;
+﻿using Amalgam.Tables.Plaintext.Writers;
 
-namespace Amalgam.Tables.PlainText;
+namespace Amalgam.Tables.Plaintext;
 
-public static class PlainTextTableConsoleExtensions
+public static class PlaintextTableConsoleExtensions
 {
     /// <summary>
     /// Writes the table to the standard output stream or to the specified <paramref name="writer"/>.
@@ -12,7 +12,7 @@ public static class PlainTextTableConsoleExtensions
     /// <param name="action">An <see cref="Action{ConsoleTableWriter{TElement}.ConsoleColorOptions}"/> to set the <see cref="ConsoleTableWriter{TElement}.ConsoleColorOptions"/>.</param>
     /// <param name="writer">The <see cref="TextWriter"/> where the table will be return. Defaults to the standard output stream</param>
     public static void WriteToConsole<TElement>(
-        this Table<TElement, PlainTextTableOptions> table,
+        this PlaintextTable<TElement> table,
         Action<ConsoleTableWriter<TElement>.ConsoleColorOptions>? action = null,
         TextWriter? writer = null)
     {

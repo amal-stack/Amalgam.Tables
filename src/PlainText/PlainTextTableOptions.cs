@@ -1,11 +1,18 @@
-﻿namespace Amalgam.Tables.PlainText;
+﻿namespace Amalgam.Tables.Plaintext;
 
 
 /// <summary>
 /// Defines more specific options to configure the creation of plain text tables (<see cref="PlainTextTable{T}"/>). 
 /// </summary>
-public class PlainTextTableOptions : TableOptions
+public class PlaintextTableOptions : TableOptions
 {
+
+    /// <summary>
+    /// Gets or sets the value that specifies if the width of each column must expand to fit the widest cell in the column.
+    /// </summary>
+    /// <value><see langword="true"/> is the default value.</value>
+    public bool AutoResizeColumns { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the character that will be used to divide the columns.
     /// </summary>
