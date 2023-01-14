@@ -2,11 +2,10 @@
 
 
 /// <summary>
-/// Defines more specific options to configure the creation of plain text tables (<see cref="PlainTextTable{T}"/>). 
+/// Defines more specific options to configure the creation of plaintext tables (<see cref="PlaintextTable{TElement}"/>). 
 /// </summary>
 public class PlaintextTableOptions : TableOptions
 {
-
     /// <summary>
     /// Gets or sets the value that specifies if the width of each column must expand to fit the widest cell in the column.
     /// </summary>
